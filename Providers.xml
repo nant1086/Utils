@@ -1,0 +1,9 @@
+<setting name="MicrosoftACE" serializeAs="String">
+    <value>Provider=Microsoft.ACE.OLEDB.12.0;Extended Properties=Excel 12.0 XML;Data Source={0};</value>
+  </setting>
+  <setting name="MicrosoftJET" serializeAs="String">
+    <value>Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=Excel 8.0;Data Source={0};</value>
+  </setting>
+  <setting name="DefaultEncoding" serializeAs="String">
+    <value>1252</value>
+</setting>

@@ -1,0 +1,32 @@
+<bindings>
+  <basicHttpBinding>
+    <binding name="BasicHttpBinding_ProjectServiceContract" closeTimeout="23:10:00" openTimeout="23:10:00" receiveTimeout="23:10:00" sendTimeout="23:10:00" maxReceivedMessageSize="2147483647" maxBufferPoolSize="2147483647" maxBufferSize="2147483647" transferMode="Streamed">
+      <readerQuotas maxDepth="2147483647" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647"/>
+      <security mode="None"/>
+    </binding>
+  </basicHttpBinding>
+  <wsHttpBinding>
+    <binding name="WsHttpBinding_ProjectServiceContract" closeTimeout="23:10:00" openTimeout="23:10:00" receiveTimeout="23:10:00" sendTimeout="23:10:00" maxReceivedMessageSize="2147483647" maxBufferPoolSize="2147483647">
+      <security mode="None"/>
+      <readerQuotas maxDepth="2147483647" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647"/>
+    </binding>
+  </wsHttpBinding>
+  <netTcpBinding>
+    <binding name="netTcpBinding_ProjectServiceContract" closeTimeout="23:10:00" openTimeout="23:10:00" receiveTimeout="23:10:00" sendTimeout="23:10:00" maxReceivedMessageSize="2147483647" maxBufferPoolSize="2147483647">
+      <security mode="None"/>
+      <readerQuotas maxDepth="2147483647" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647"/>
+    </binding>
+  </netTcpBinding>
+  <customBinding>
+    <binding name="BinaryHttpBinding_ProjectServiceContract"  closeTimeout="23:10:00" openTimeout="23:10:00" receiveTimeout="23:10:00" sendTimeout="23:10:00" >
+      <binaryMessageEncoding  maxReadPoolSize="1024" maxWritePoolSize="10000" maxSessionSize="5000" ><readerQuotas maxStringContentLength="2147483647"/></binaryMessageEncoding>
+      <httpTransport maxReceivedMessageSize="2147483647" maxBufferPoolSize="2147483647"/>
+    </binding>
+  </customBinding>
+</bindings>
+<services>
+  <service behaviorConfiguration="Project.ServiceImplementation.ProjectService_Behavior" name="Project.ServiceImplementation.ProjectService">
+    <endpoint address="" binding="basicHttpBinding" name="ProjectEndpoint" bindingConfiguration="BasicHttpBinding_ProjectServiceContract" bindingNamespace="http://ProjectServices.Model/2013/ProjectServices" contract="Project.ServiceContracts.IProjectServiceContract"/>
+    <endpoint address="bin" binding="customBinding" name="BinaryEndpoint" bindingConfiguration="BinaryHttpBinding_ProjectServiceContract" bindingNamespace="http://ProjectServices.Model/2013/ProjectServices" contract="Project.ServiceContracts.IProjectServiceContract"/>
+  </service>
+</services>

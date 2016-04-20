@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BundleConfig>
+  <ScriptBundle VirtualPath="~/bundles/HomeIndexjs" Include="~/Scripts/Vistas/Home/index.js" SearchPattern="" SearchSubdirectories="false" Minificar="false"/>
+  <StyleBundle VirtualPath="~/bundles/HomeIndexcss" Include="~/Content/Vistas/Home/index.css" SearchPattern="" SearchSubdirectories="false" Minificar="false"/>
+</BundleConfig>
