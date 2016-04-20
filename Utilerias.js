@@ -1,10 +1,8 @@
-﻿"use strict";
+"use strict";
 var modoDebug = false;
 
-var Integer = {
-    get max() { return 2147483648; },
-    get min() { return -2147483647; }
-};
+Object.defineProperty(Number.prototype, "min32", { get: function myProperty() { return -2147483647; } });
+Object.defineProperty(Number.prototype, "max32", { get: function myProperty() { return 2147483648; } });
 
 function crearListaHtml(arreglo, listaOrdenada) {
     if (listaOrdenada) {
@@ -695,6 +693,48 @@ jQuery.fn.sqlWildcardTooltip = function () {
         content: $("#likewildcard").html(),
         show: 2000
     });
+}
+
+function loadingBlockUI(){
+    $.blockUI.defaults.css = {
+        padding: '6px 0',
+        margin: '-18px 0 0 -83px',
+        width: 128,
+        height: 128,
+        top: '50%',
+        left: '50%',
+        textAlign: 'center',
+        color: 'black',
+        backgroundColor: 'gray',
+        cursor: 'wait'
+    };
+    $.blockUI.defaults.overlayCSS = {
+        backgroundColor: '#AAAAAA',
+        opacity: 0.3,
+        cursor: 'wait'
+    };
+    $.blockUI.defaults.message = 'Cargando...';
+    $.blockUI.defaults.fadeOut = 0;
+    $.blockUI.defaults.fadeIn = 0;
+    function blockUIValidado() {
+        if (aplicacion.displayAjaxMsg) {
+            $.blockUI();
+        }
+    }
+    function desbloquearMostrarError(jqxhr, textStatus, errorThrown) {
+        $.unblockUI();
+        mostrarError(jqxhr, textStatus, errorThrown);
+    }
+    try
+    {
+        $(document).ajaxStart(blockUIValidado)
+            .ajaxStop($.unblockUI)
+            .ajaxError(desbloquearMostrarError);
+    }
+    catch (ex) {
+        $.unblockUI();
+        mostrarMensaje("Sistema Bonos", ex.message);
+    }
 }
 // Borra el datepicker con el evento onClose
 function clearDatepicker(dateText, inst) {
