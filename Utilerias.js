@@ -723,7 +723,7 @@ function scrollTo(control) {
 function mostrarMensaje(titulo, mensaje, options, callBack) {
     //<summary>Muestra una ventana de mensaje</summary>
     if (mensaje == null) mensaje = "";
-    if (titulo == null) titulo = "Sistema UDIS";
+    if (titulo == null) titulo = "Sistema";
 
     if (options == null) options = new Object;
     if (callBack == null) callBack = function () { return false; }
