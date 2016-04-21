@@ -337,13 +337,35 @@ String.prototype.coalesce = function () {/// <summary>Si el valor actual es nulo
         return texto == null || texto.trim && texto.trim() == "" || texto.toString().trim() == "";
     }
 };
-String.prototype.format = function () {
+/*String.prototype.format = function () {
     var argsFormat = arguments;
     function replace(match, number) {
         return typeof argsFormat[number] != 'undefined' ? argsFormat[number] : match;
     }
     return this.replace(/{(\d+)}/g, replace);
+};*/
+String.prototype.format = function (args) { 
+        var params = args == null ? arguments : args; 
+        var argsFormat = new Array;  
+
+        switch (typeof params) { 
+            case 'object': 
+                argsFormat = $.map(params, function (value, index) { 
+                    return [value]; 
+                }); 
+
+                break; 
+            default: 
+                argsFormat = arguments; 
+        } 
+
+        function replace(match, number) { 
+            return typeof argsFormat[number] != 'undefined' ? argsFormat[number] : match; 
+        } 
+        return this.replace(/{(\d+)}/g, replace); 
 };
+
+
 function dateStrToDate(objeto) {/// <summary>Convierte a Date el texto con el formato /Date(############)/ </summary>
     // /\d+/.exec("\/Date(1293861600000)\/")
     return _.isDate(objeto)
