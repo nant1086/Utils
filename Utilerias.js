@@ -314,6 +314,87 @@ String.prototype.removeAll = function (text) {/// <summary>Elimina todas las apa
 String.prototype.replaceAll = function (value, replacement) {/// <summary>Reemplaza todas las apariciones y devuelve el texto generado</summary>
     return this.split(value).join(replacement);
 }
+String.prototype.withoutDiacritics = function () { /// <summary> Reemplaza los diacríticos por sus equivalentes ASCII </summary>
+    function getter(l) {
+        switch (l) {
+            // lower case
+            case "á": return "a";
+            case "à": return "a";
+            case "â": return "a";
+            case "ã": return "a";
+            case "ä": return "a";
+            case "å": return "a";
+            case "æ": return "a";
+
+            case "é": return "e";
+            case "è": return "e";
+            case "ê": return "e";
+            case "ë": return "e";
+
+            case "í": return "i";
+            case "ì": return "i";
+            case "î": return "i";
+            case "ï": return "i";
+
+            case "ó": return "o";
+            case "ò": return "o";
+            case "ô": return "o";
+            case "õ": return "o";
+            case "ö": return "o";
+            case "ø": return "o";
+
+            case "ú": return "u";
+            case "ù": return "u";
+            case "û": return "u";
+            case "ü": return "u";
+
+            case "ñ": return "n";
+            case "ç": return "c";
+            case "ß": return "b";
+            case "ÿ": return "y";
+
+            // upper case
+            case "Á": return "A";
+            case "À": return "A";
+            case "Â": return "A";
+            case "Ã": return "A";
+            case "Ä": return "A";
+            case "Å": return "A";
+            case "Æ": return "A";
+                
+            case "É": return "E";
+            case "È": return "E";
+            case "Ê": return "E";
+            case "Ë": return "E";
+
+            case "Í": return "I";
+            case "Ì": return "I";
+            case "Î": return "I";
+            case "Ï": return "I";
+                
+            case "Ó": return "O";
+            case "Ò": return "O";
+            case "Ô": return "O";
+            case "Õ": return "O";
+            case "Ö": return "O";
+            case "Ø": return "O";
+
+            case "Ú": return "U";
+            case "Ù": return "U";
+            case "Û": return "U";
+            case "Ü": return "U";
+
+            case "Ñ": return "N";
+            case "Ç": return "C";
+            case "ß": return "B";
+            case "Ÿ": return "Y";
+            default:
+                console.warn("El item ", l, " no está implementado");
+                return l;
+        }
+    }
+    return this.replace(/[áàâãäåæéèêëíìîïóòôõöøúùûüñçßÿ]/gi, getter);
+};
 Date.prototype.toIsoDate = function () {/// <summary>Convierte a texto con el formato ISO yyyy-MM-dd donde yyyy es el año, MM es el número del mes y dd es el día del mes</summary>
     return this.toISOString().substring(0, 10);
 };
