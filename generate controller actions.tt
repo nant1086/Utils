@@ -1,0 +1,50 @@
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ Assembly Name="$(ProjectDir)\Bin\MyProject.Web.dll" #>
+<#@ Assembly Name="$(ProjectDir)\Bin\System.Web.Mvc.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Web.Mvc" #>
+<#@ import namespace="MyProject.Web.Controllers" #>
+<#@ output extension=".cs" #>
+
+namespace MyProject.Web.Controllers.Names
+{
+	<#
+	foreach (var item in typeof(HomeController).Assembly.DefinedTypes.OrderBy(p => p.FullName))
+    {
+        if(item.FullName.EndsWith("Controller"))
+        {#>
+public struct <#=item.Name#>
+	{
+		public const string Name = nameof(<#=item.Name#>);
+    <# foreach (var method in item.DeclaredMethods.Distinct(MethodInfoComparer.Default))
+            {
+                if (method.ReturnType == typeof(ActionResult))
+                {#>	public const string <#=method.Name#> = nameof(<#=method.Name#>);
+	<#}
+            }#>
+}
+	<#}
+    }
+	#>
+
+}
+
+<#+
+class MethodInfoComparer : IEqualityComparer<MethodInfo>
+{
+	public static readonly MethodInfoComparer Default = new MethodInfoComparer();
+    bool IEqualityComparer<MethodInfo>.Equals(MethodInfo x, MethodInfo y)
+    {
+        return x.Name == y.Name;
+    }
+
+    int IEqualityComparer<MethodInfo>.GetHashCode(MethodInfo obj)
+    {
+        return obj.Name.GetHashCode();
+    }
+}
+#>
