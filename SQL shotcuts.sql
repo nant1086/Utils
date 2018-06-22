@@ -14,4 +14,4 @@ SELECT DISTINCT o.name AS Object_Name,o.type_desc FROM sys.sql_modules m INNER J
 exec sp_helptext 
 
 --Ctrl + 8 : Busca una columna y muestra la tabla y el esquema a la que pertenece
-select [Column]= c.name, [Table]=t.name, [Schema] = s.name from sys.columns c join sys.tables t on c.object_id = t.object_id join sys.schemas s on t.schema_id = s.schema_id where c.name like 
+with cte([Schema],[Table],[Column],[Type]) as (select s.name, t.name, c.name, y.name from sys.columns c join sys.tables t on c.object_id = t.object_id join sys.schemas s on t.schema_id = s.schema_id join sys.types y on c.system_type_id = y.system_type_id) select * from cte where [Column] like 
